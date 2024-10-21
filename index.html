@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulário de Números Inteiros</title>
+    
+    <style>
+        body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background: white;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+input {
+    margin-right: 10px;
+    padding: 10px;
+}
+
+button {
+    padding: 10px;
+    margin-right: 10px;
+}
+
+label {
+    display: block;
+    margin-top: 20px;
+}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Inserir Números Inteiros</h1>
+        <input type="number" id="numeroInput" placeholder="Digite um número inteiro" required>
+        <button id="inserirBtn">Inserir</button>
+        <button id="ordenarBtn">Ordenar</button>
+        
+        <label id="listaLabel"></label>
+        <label id="listaOrdenadaLabel"></label>
+    </div>
+    
+</body>
+<script>
+    let lista = [];
+
+document.getElementById('inserirBtn').addEventListener('click', function() {
+    const numeroInput = document.getElementById('numeroInput');
+    const numero = parseInt(numeroInput.value);
+
+    if (!isNaN(numero)) {
+        lista.push(numero);
+        numeroInput.value = ''; // Limpa o campo de entrada
+        atualizarLista();
+    } else {
+        alert("Por favor, insira um número inteiro válido.");
+    }
+});
+
+document.getElementById('ordenarBtn').addEventListener('click', function() {
+    let listaOrdenada = bubbleSort(lista.slice()); // Cria uma cópia da lista para ordenar
+    document.getElementById('listaOrdenadaLabel').innerText = 'Lista Ordenada: ' + listaOrdenada.join(', ');
+});
+
+function atualizarLista() {
+    document.getElementById('listaLabel').innerText = 'Lista: ' + lista.join(', ');
+}
+
+function bubbleSort(arr) {
+    let n = arr.length;
+    for (let i = 0; i < n - 1; i++) {
+        for (let j = 0; j < n - i - 1; j++) {
+            if (arr[j] > arr[j + 1]) {
+                // Troca arr[j] e arr[j+1]
+                let temp = arr[j];
+                arr[j] = arr[j + 1];
+                arr[j + 1] = temp;
+            }
+        }
+    }
+    return arr;
+}
+</script>
+</html>
